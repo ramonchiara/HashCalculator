@@ -1,8 +1,8 @@
 package br.com.hashcalculator.jsf;
 
+import br.com.hashcalculator.HashInput;
 import br.com.hashcalculator.HashOutput;
 import br.com.hashcalculator.HashService;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -10,24 +10,18 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 public class Index {
 
-    private HashService hashService = new HashService();
-
-    private String input;
+    private HashInput input = new HashInput();
     private List<HashOutput> outputs;
 
-    public Index() throws NoSuchAlgorithmException {
+    public Index() {
         doHash();
     }
 
-    public List<String> getAlgorithms() {
-        return hashService.getAlgorithms();
-    }
-
-    public String getInput() {
+    public HashInput getInput() {
         return input;
     }
 
-    public void setInput(String input) {
+    public void setInput(HashInput input) {
         this.input = input;
     }
 
@@ -39,11 +33,12 @@ public class Index {
         this.outputs = outputs;
     }
 
-    public void doHash() throws NoSuchAlgorithmException {
+    public final void doHash() {
+        HashService hashService = new HashService();
         List<String> algorithms = hashService.getAlgorithms();
         outputs = new ArrayList<>();
         for (String algorithm : algorithms) {
-            byte[] hash = hashService.getHash(input, algorithm);
+            byte[] hash = hashService.getHash(input.getTransformedInput(), algorithm);
             outputs.add(new HashOutput(algorithm, hash));
         }
     }
