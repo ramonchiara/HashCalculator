@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Hash Calculator</title>
+        <link rel="shortcut icon" href="#{application.contextPath}/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="#{application.contextPath}/favicon.ico" type="image/x-icon"/>
+    </h:head>
+    <h:body>
+        <header class="ui-g">
+            <h1 class="ui-g-12"><h:graphicImage name="images/logo.png"/> Hash Calculator</h1>
+        </header>
+        <div class="ui-g">
+            <h:form>
+                <p:focus/>
+                <p:outputLabel for="input" value="Entrada" styleClass="ui-g-1"/>
+                <p:inputTextarea id="input" value="#{index.input}" styleClass="ui-g-11">
+                    <p:ajax event="keyup" update="outputs" listener="#{index.doHash}"/>
+                </p:inputTextarea>
+                <h:panelGroup id="outputs">
+                    <ui:repeat value="#{index.algorithms}" var="algorithm" varStatus="status">
+                        <p:outputLabel for="output" value="#{algorithm}" styleClass="ui-g-1"/>
+                        <p:inputText id="output" value="#{index.output[status.index]}" readonly="true" styleClass="ui-g-11"/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </div>
+        <footer class="ui-g">
+            <a href="https://github.com/ramonchiara/HashCalculator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"/></a>    
+        </footer>
+    </h:body>
+</html>
