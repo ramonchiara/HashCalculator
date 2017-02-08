@@ -22,7 +22,7 @@ public class HashOutput {
     }
 
     public String getSize() {
-        return hash == null ? "" : hash.length + " byte(s)";
+        return hash == null ? "" : hash.length + " byte(s) / " + 8 * hash.length + " bit(s)";
     }
 
     public String getHexa() {
