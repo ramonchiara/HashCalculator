@@ -10,7 +10,7 @@ public class HashInput {
     private String inputType;
 
     public HashInput() {
-        this(null, "ascii");
+        this("", "ascii");
     }
 
     public HashInput(String input, String inputType) {
