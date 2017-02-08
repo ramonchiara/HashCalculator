@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -20,24 +20,34 @@
             <div class="row">
                 <h1><h:graphicImage name="images/logo.png"/> Hash Calculator</h1>
             </div>
-            <h:form styleClass="form-horizontal">
+            <h:form>
                 <div class="form-group">
-                    <h:outputLabel for="input" value="Entrada" styleClass="control-label col-sm-1"/>
-                    <div class="col-sm-11">
-                        <h:inputTextarea id="input" value="#{index.input}" styleClass="form-control">
-                            <f:ajax event="keyup" listener="#{index.doHash}" render="outputs" onerror="ajaxErrorHandler"/>
-                        </h:inputTextarea>
-                    </div>
+                    <h:outputLabel for="input" value="Entrada" styleClass="control-label"/>
+                    <h:inputTextarea id="input" value="#{index.input}" styleClass="form-control">
+                        <f:ajax event="keyup" listener="#{index.doHash}" render="outputs" onerror="ajaxErrorHandler"/>
+                    </h:inputTextarea>
                 </div>
                 <h:panelGroup id="outputs">
-                    <ui:repeat value="#{index.algorithms}" var="algorithm" varStatus="status">
-                        <div class="form-group">
-                            <h:outputLabel for="output" value="#{algorithm}" styleClass="control-label col-sm-1"/>
-                            <div class="col-sm-11">
-                                <h:inputText id="output" value="#{index.output[status.index]}" readonly="true" styleClass="form-control"/>
+                    <p:tabView value="#{index.outputs}" var="output">
+                        <p:tab title="#{output.algorithm}">
+                            <div class="form-group">
+                                <h:outputLabel value="#{output.size}" styleClass="control-label"/>
+                                <h:inputText value="#{output.hash}" readonly="true" styleClass="form-control"/>
                             </div>
-                        </div>
-                    </ui:repeat>
+                            <div class="form-group">
+                                <h:outputLabel value="(hex)" styleClass="control-label"/>
+                                <h:inputText value="#{output.hexa}" readonly="true" styleClass="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value="base64" styleClass="control-label"/>
+                                <h:inputText value="#{output.base64}" readonly="true" styleClass="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value="base64 (hex)" styleClass="control-label"/>
+                                <h:inputText value="#{output.base64InHexa}" readonly="true" styleClass="form-control"/>
+                            </div>
+                        </p:tab>
+                    </p:tabView>
                 </h:panelGroup>
             </h:form>
             <div class="row">

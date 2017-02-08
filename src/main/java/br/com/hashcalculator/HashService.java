@@ -26,9 +26,15 @@ public class HashService {
     }
 
     public byte[] getHash(String input, String algorithm) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance(algorithm);
-        md.update(input.getBytes());
-        return md.digest();
+        byte[] hash = null;
+
+        if (input != null) {
+            MessageDigest md = MessageDigest.getInstance(algorithm);
+            md.update(input.getBytes());
+            hash = md.digest();
+        }
+
+        return hash;
     }
 
 }

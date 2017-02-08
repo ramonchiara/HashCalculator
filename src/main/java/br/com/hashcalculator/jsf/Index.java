@@ -1,5 +1,6 @@
 package br.com.hashcalculator.jsf;
 
+import br.com.hashcalculator.HashOutput;
 import br.com.hashcalculator.HashService;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -12,7 +13,11 @@ public class Index {
     private HashService hashService = new HashService();
 
     private String input;
-    private List<String> output;
+    private List<HashOutput> outputs;
+
+    public Index() throws NoSuchAlgorithmException {
+        doHash();
+    }
 
     public List<String> getAlgorithms() {
         return hashService.getAlgorithms();
@@ -26,20 +31,20 @@ public class Index {
         this.input = input;
     }
 
-    public List<String> getOutput() {
-        return output;
+    public List<HashOutput> getOutputs() {
+        return outputs;
     }
 
-    public void setOutput(List<String> output) {
-        this.output = output;
+    public void setOutputs(List<HashOutput> outputs) {
+        this.outputs = outputs;
     }
 
     public void doHash() throws NoSuchAlgorithmException {
         List<String> algorithms = hashService.getAlgorithms();
-        output = new ArrayList<>();
+        outputs = new ArrayList<>();
         for (String algorithm : algorithms) {
             byte[] hash = hashService.getHash(input, algorithm);
-            output.add(new String(hash));
+            outputs.add(new HashOutput(algorithm, hash));
         }
     }
 

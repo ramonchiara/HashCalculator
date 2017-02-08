@@ -37,6 +37,12 @@
             <artifactId>primefaces</artifactId>
             <version>6.0</version>
         </dependency>
+        <dependency>
+            <groupId>apache-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.2</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>
