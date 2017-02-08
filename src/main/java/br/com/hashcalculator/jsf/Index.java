@@ -1,8 +1,6 @@
 package br.com.hashcalculator.jsf;
 
-import br.com.hashcalculator.HashInput;
-import br.com.hashcalculator.HashOutput;
-import br.com.hashcalculator.HashService;
+import br.com.hashcalculator.services.HashService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -10,27 +8,19 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 public class Index {
 
-    private HashInput input = new HashInput();
-    private List<HashOutput> outputs;
+    private IndexInput input = new IndexInput();
+    private List<IndexOutput> outputs;
 
     public Index() {
         doHash();
     }
 
-    public HashInput getInput() {
+    public IndexInput getInput() {
         return input;
     }
 
-    public void setInput(HashInput input) {
-        this.input = input;
-    }
-
-    public List<HashOutput> getOutputs() {
+    public List<IndexOutput> getOutputs() {
         return outputs;
-    }
-
-    public void setOutputs(List<HashOutput> outputs) {
-        this.outputs = outputs;
     }
 
     public final void doHash() {
@@ -39,7 +29,7 @@ public class Index {
         outputs = new ArrayList<>();
         for (String algorithm : algorithms) {
             byte[] hash = hashService.getHash(input.getTransformedInput(), algorithm);
-            outputs.add(new HashOutput(algorithm, hash));
+            outputs.add(new IndexOutput(algorithm, hash));
         }
     }
 

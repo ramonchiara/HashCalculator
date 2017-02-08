@@ -12,21 +12,19 @@
         <title>Hash Calculator</title>
         <link href="js/libs/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="js/libs/twitter-bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
-        <h:outputStylesheet name="css/style.css"/>
-        <h:outputScript name="js/functions.js"/>
     </h:head>
     <h:body>
         <div class="container">
             <div class="row">
                 <h1><h:graphicImage name="images/logo.png"/> Hash Calculator</h1>
             </div>
-            <h:form>
+            <h:form id="form">
                 <div class="form-group">
                     <h:outputLabel for="input" value="Entrada" styleClass="control-label"/>
                     <div class="row">
                         <div class="col-sm-6">
                             <h:inputTextarea id="input" value="#{index.input.input}" styleClass="form-control">
-                                <f:ajax event="keyup" execute="input" listener="#{index.doHash}" render="transformedInput outputs" onerror="ajaxErrorHandler"/>
+                                <f:ajax event="keyup" execute="input inputType" listener="#{index.doHash}" render="transformedInput outputs"/>
                             </h:inputTextarea>
                         </div>
                         <div class="col-sm-6">
@@ -38,7 +36,7 @@
                         <f:selectItem itemValue="hex" itemLabel="(hex)"/>	
                         <f:selectItem itemValue="base64" itemLabel="base64"/>	
                         <f:selectItem itemValue="base64hex" itemLabel="base64 (hex)"/>
-                        <f:ajax event="change" execute="input" listener="#{index.doHash}" render="transformedInput outputs" onerror="ajaxErrorHandler"/>
+                        <f:ajax event="change" execute="input inputType" listener="#{index.doHash}" render="transformedInput outputs"/>
                     </h:selectOneRadio>
                 </div>
                 <h:panelGroup id="outputs">

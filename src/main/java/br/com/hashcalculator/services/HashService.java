@@ -1,4 +1,4 @@
-package br.com.hashcalculator;
+package br.com.hashcalculator.services;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -27,7 +27,7 @@ public class HashService {
 
     public byte[] getHash(String input, String algorithm) {
         try {
-            byte[] hash = null;
+            byte[] hash = new byte[0];
 
             if (input != null) {
                 MessageDigest md = MessageDigest.getInstance(algorithm);
