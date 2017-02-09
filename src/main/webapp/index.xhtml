@@ -19,12 +19,13 @@
                 <h1><h:graphicImage name="images/logo.png"/> Hash Calculator</h1>
             </div>
             <h:form id="form">
+                <h:inputHidden id="activeIndex" value="#{index.activeIndex}"/>
                 <div class="form-group">
                     <h:outputLabel for="input" value="Entrada" styleClass="control-label"/>
                     <div class="row">
                         <div class="col-sm-6">
                             <h:inputTextarea id="input" value="#{index.input.input}" styleClass="form-control">
-                                <f:ajax event="keyup" execute="input inputType" listener="#{index.doHash}" render="transformedInput outputs"/>
+                                <f:ajax event="keyup" execute="input inputType activeIndex" listener="#{index.doHash}" render="transformedInput outputs"/>
                             </h:inputTextarea>
                         </div>
                         <div class="col-sm-6">
@@ -36,11 +37,11 @@
                         <f:selectItem itemValue="hex" itemLabel="(hex)"/>	
                         <f:selectItem itemValue="base64" itemLabel="base64"/>	
                         <f:selectItem itemValue="base64hex" itemLabel="base64 (hex)"/>
-                        <f:ajax event="change" execute="input inputType" listener="#{index.doHash}" render="transformedInput outputs"/>
+                        <f:ajax event="change" execute="input inputType activeIndex" listener="#{index.doHash}" render="transformedInput outputs"/>
                     </h:selectOneRadio>
                 </div>
                 <h:panelGroup id="outputs">
-                    <p:tabView value="#{index.outputs}" var="output">
+                    <p:tabView value="#{index.outputs}" var="output" activeIndex="#{index.activeIndex}" onTabChange="onTabChange(index)">
                         <p:tab title="#{output.algorithm}">
                             <div class="form-group">
                                 <h:outputLabel value="#{output.size}" styleClass="control-label"/>
@@ -68,5 +69,10 @@
         </div>
         <script src="js/libs/jquery/jquery.min.js" type="text/javascript"></script>
         <script src="js/libs/twitter-bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            function onTabChange(i) {
+                document.getElementById('form:activeIndex').setAttribute('value', i);
+            }
+        </script>
     </h:body>
 </html>

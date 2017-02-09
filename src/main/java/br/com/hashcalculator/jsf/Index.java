@@ -10,6 +10,7 @@ public class Index {
 
     private IndexInput input = new IndexInput();
     private List<IndexOutput> outputs;
+    private Integer activeIndex = 0;
 
     public Index() {
         doHash();
@@ -21,6 +22,14 @@ public class Index {
 
     public List<IndexOutput> getOutputs() {
         return outputs;
+    }
+
+    public Integer getActiveIndex() {
+        return activeIndex;
+    }
+
+    public void setActiveIndex(Integer activeIndex) {
+        this.activeIndex = activeIndex;
     }
 
     public final void doHash() {
