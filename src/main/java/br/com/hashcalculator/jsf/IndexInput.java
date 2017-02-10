@@ -86,7 +86,7 @@ public class IndexInput {
                 transformedInputForView = getTransformedInput();
                 break;
             case "hex":
-                transformedInputForView = new String(Hex.encodeHex(getTransformedInput().getBytes()));
+                transformedInputForView = new String(Hex.encodeHex(getTransformedInput().getBytes())).toUpperCase();
                 break;
             default:
                 transformedInputForView = getTransformedInput();
