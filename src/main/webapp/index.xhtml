@@ -28,7 +28,7 @@
                         <h:outputLabel for="input" value="Entrada" styleClass="control-label"/>
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
-                                <h:inputTextarea id="input" value="#{index.input.input}" styleClass="form-control">
+                                <h:inputTextarea id="input" value="#{index.input.input}" styleClass="form-control" rows="4">
                                     <f:ajax event="keyup" execute="input inputType activeIndex" listener="#{index.doHash}" render="transformedInput outputs"/>
                                 </h:inputTextarea>
                                 <h:selectOneRadio id="inputType" value="#{index.input.inputType}" styleClass="table-condensed">
@@ -40,7 +40,7 @@
                                 </h:selectOneRadio>
                             </div>
                             <div class="col-xs-12 col-sm-6">
-                                <h:inputTextarea id="transformedInput" value="#{index.input.transformedInput}" readonly="true" styleClass="form-control"/>
+                                <h:inputTextarea id="transformedInput" value="#{index.input.transformedInput}" rows="4" readonly="true" styleClass="form-control"/>
                             </div>
                         </div>
                     </div>
