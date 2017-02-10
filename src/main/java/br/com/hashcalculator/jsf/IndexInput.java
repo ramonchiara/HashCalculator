@@ -7,17 +7,9 @@ import org.primefaces.util.Base64;
 
 public class IndexInput {
 
-    private String input;
-    private String inputType;
-
-    public IndexInput() {
-        this("", "ascii");
-    }
-
-    public IndexInput(String input, String inputType) {
-        this.input = input;
-        this.inputType = inputType;
-    }
+    private String input = "";
+    private String inputType = "ascii";
+    private String viewAs = "ascii";
 
     public String getInput() {
         return input;
@@ -33,6 +25,14 @@ public class IndexInput {
 
     public void setInputType(String inputType) {
         this.inputType = inputType;
+    }
+
+    public String getViewAs() {
+        return viewAs;
+    }
+
+    public void setViewAs(String viewAs) {
+        this.viewAs = viewAs;
     }
 
     public String getTransformedInput() {
@@ -76,6 +76,23 @@ public class IndexInput {
         } catch (DecoderException ex) {
             throw new HashServiceException(ex);
         }
+    }
+
+    public String getTransformedInputForView() {
+        String transformedInputForView;
+
+        switch (viewAs) {
+            case "ascii":
+                transformedInputForView = getTransformedInput();
+                break;
+            case "hex":
+                transformedInputForView = new String(Hex.encodeHex(getTransformedInput().getBytes()));
+                break;
+            default:
+                transformedInputForView = getTransformedInput();
+        }
+
+        return transformedInputForView;
     }
 
 }

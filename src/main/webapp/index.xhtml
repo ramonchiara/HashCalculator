@@ -29,18 +29,23 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
                                 <h:inputTextarea id="input" value="#{index.input.input}" styleClass="form-control" rows="4">
-                                    <f:ajax event="keyup" execute="input inputType activeIndex" listener="#{index.doHash}" render="transformedInput outputs"/>
+                                    <f:ajax event="keyup" execute="input inputType viewAs activeIndex" listener="#{index.doHash}" render="transformedInput outputs"/>
                                 </h:inputTextarea>
                                 <h:selectOneRadio id="inputType" value="#{index.input.inputType}" styleClass="table-condensed">
                                     <f:selectItem itemValue="ascii" itemLabel="ASCII"/>
                                     <f:selectItem itemValue="hex" itemLabel="(hex)"/>	
                                     <f:selectItem itemValue="base64" itemLabel="base64"/>	
                                     <f:selectItem itemValue="base64hex" itemLabel="base64 (hex)"/>
-                                    <f:ajax event="change" execute="input inputType activeIndex" listener="#{index.doHash}" render="transformedInput outputs"/>
+                                    <f:ajax event="change" execute="input inputType viewAs activeIndex" listener="#{index.doHash}" render="transformedInput outputs"/>
                                 </h:selectOneRadio>
                             </div>
                             <div class="col-xs-12 col-sm-6">
-                                <h:inputTextarea id="transformedInput" value="#{index.input.transformedInput}" rows="4" readonly="true" styleClass="form-control"/>
+                                <h:inputTextarea id="transformedInput" value="#{index.input.transformedInputForView}" rows="4" readonly="true" styleClass="form-control"/>
+                                <h:selectOneRadio id="viewAs" value="#{index.input.viewAs}" styleClass="table-condensed">
+                                    <f:selectItem itemValue="ascii" itemLabel="ASCII"/>
+                                    <f:selectItem itemValue="hex" itemLabel="(hex)"/>	
+                                    <f:ajax event="change" execute="input inputType viewAs activeIndex" listener="#{index.doHash}" render="transformedInput outputs"/>
+                                </h:selectOneRadio>
                             </div>
                         </div>
                     </div>
