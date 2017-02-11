@@ -2,8 +2,8 @@ package br.com.hashcalculator.jsf;
 
 import br.com.hashcalculator.services.HashServiceException;
 import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
-import org.primefaces.util.Base64;
 
 public class IndexInput {
 
@@ -35,27 +35,25 @@ public class IndexInput {
         this.viewAs = viewAs;
     }
 
-    public String getTransformedInput() {
-        try {
-            String transformedInput = input;
+    public byte[] getTransformedInput() {
+        byte[] transformedInput = input.getBytes(); // ascii as default
 
+        try {
             switch (inputType) {
                 case "ascii": {
-                    transformedInput = input;
                     break;
                 }
                 case "hex": {
                     String trimmedInput = input.replaceAll("\\s", "");
                     if (trimmedInput.length() % 2 == 0) {
-                        byte[] hexToText = Hex.decodeHex(trimmedInput.toCharArray());
-                        transformedInput = new String(hexToText);
+                        transformedInput = Hex.decodeHex(trimmedInput.toCharArray());
                     }
                     break;
                 }
                 case "base64": {
-                    byte[] base64ToText = Base64.decode(input);
+                    byte[] base64ToText = Base64.decodeBase64(transformedInput);
                     if (base64ToText != null) {
-                        transformedInput = new String(base64ToText);
+                        transformedInput = base64ToText;
                     }
                     break;
                 }
@@ -63,33 +61,34 @@ public class IndexInput {
                     String trimmedInput = input.replaceAll("\\s", "");
                     if (trimmedInput.length() % 2 == 0) {
                         byte[] hexToText = Hex.decodeHex(trimmedInput.toCharArray());
-                        byte[] base64ToText = Base64.decode(hexToText);
+                        byte[] base64ToText = Base64.decodeBase64(hexToText);
                         if (base64ToText != null) {
-                            transformedInput = new String(base64ToText);
+                            transformedInput = base64ToText;
                         }
                     }
                     break;
                 }
             }
-
-            return transformedInput;
         } catch (DecoderException ex) {
             throw new HashServiceException(ex);
         }
+
+        return transformedInput;
     }
 
     public String getTransformedInputForView() {
-        String transformedInputForView;
+        byte[] transformedInput = getTransformedInput();
+        String transformedInputForView = new String(transformedInput); // ascii default
 
         switch (viewAs) {
             case "ascii":
-                transformedInputForView = getTransformedInput();
                 break;
             case "hex":
-                transformedInputForView = new String(Hex.encodeHex(getTransformedInput().getBytes())).toUpperCase();
+                transformedInputForView = new String(Hex.encodeHex(transformedInput)).toUpperCase();
                 break;
-            default:
-                transformedInputForView = getTransformedInput();
+            case "base64":
+                transformedInputForView = new String(Base64.encodeBase64(transformedInput));
+                break;
         }
 
         return transformedInputForView;

@@ -44,6 +44,7 @@
                                 <h:selectOneRadio id="viewAs" value="#{index.input.viewAs}" styleClass="table-condensed">
                                     <f:selectItem itemValue="ascii" itemLabel="ASCII"/>
                                     <f:selectItem itemValue="hex" itemLabel="(hex)"/>	
+                                    <f:selectItem itemValue="base64" itemLabel="base64"/>	
                                     <f:ajax event="change" execute="input inputType viewAs activeIndex" listener="#{index.doHash}" render="transformedInput outputs"/>
                                 </h:selectOneRadio>
                             </div>

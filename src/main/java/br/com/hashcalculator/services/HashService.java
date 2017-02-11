@@ -25,13 +25,13 @@ public class HashService {
         return algorithms;
     }
 
-    public byte[] getHash(String input, String algorithm) {
+    public byte[] getHash(byte[] input, String algorithm) {
         try {
             byte[] hash = new byte[0];
 
             if (input != null) {
                 MessageDigest md = MessageDigest.getInstance(algorithm);
-                md.update(input.getBytes());
+                md.update(input);
                 hash = md.digest();
             }
 
